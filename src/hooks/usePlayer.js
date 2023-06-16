@@ -9,7 +9,7 @@ export const usePlayer = () => {
     aliens: aliens(),
   });
 
-  const updatePlayerPos = ({ x, y, collided }) => {
+  const updatePlayerPos = ({ x, y }) => {
     const newX = player.pos.x + x;
     setPlayer((prev) => ({
       ...prev,
@@ -17,13 +17,34 @@ export const usePlayer = () => {
     }));
   };
 
+  const moveAliens = () => {
+    console.log("updateAliensPos");
+    const clonedAliens = JSON.parse(JSON.stringify(player.aliens));
+    for (let y = 0; y < clonedAliens.length; y++) {
+      const row = clonedAliens[y];
+      for (let x = 0; x < row.length; x++) {
+        const alien = row[x];
+        alien.pos_x++;
+      }
+    }
+    console.log(clonedAliens);
+    setPlayer((prev) => {
+      console.log("prev", prev);
+      const next = {
+        ...prev,
+        aliens: [],
+      };
+      console.log("next", next);
+      return next;
+    });
+  };
+
   const resetPlayer = useCallback(() => {
-    console.log('resetPlayer');
     setPlayer({
       pos: { x: Math.floor(STAGE_WIDTH / 2), y: STAGE_HEIGHT - 1 },
       aliens: aliens(),
     });
   }, []);
 
-  return [player, updatePlayerPos, resetPlayer];
+  return [player, updatePlayerPos, moveAliens, resetPlayer];
 };

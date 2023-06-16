@@ -6,12 +6,14 @@ import StartButton from "./StartButton";
 
 import { usePlayer } from "../hooks/usePlayer";
 import { useStage } from "../hooks/useStage";
+import { useInterval } from "../hooks/useInterval";
+
 import { createStage, checkPlayerCollision } from "../gameHelpers";
 
 const Space = () => {
-  //   // const [moveTime, setMoveTime] = useState(null);
+  const [moveTime, setMoveTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [player, updatePlayerPos, resetPlayer] = usePlayer();
+  const [player, updatePlayerPos, moveAliens, resetPlayer] = usePlayer();
   const [stage, setStage] = useStage(player);
   //
   //   console.log("re-render");
@@ -26,11 +28,9 @@ const Space = () => {
   const startGame = () => {
     // Reset everything
     setStage(createStage());
+    // setMoveTime(100000);
+    moveAliens();
     resetPlayer();
-  };
-
-  const moveAliens = () => {
-    updateAliensPos({ x: 0, y: 1, collided: false });
   };
 
   const shoot = () => {
@@ -48,6 +48,10 @@ const Space = () => {
       }
     }
   };
+
+  useInterval(() => {
+    moveAliens();
+  }, moveTime);
 
   return (
     <div
