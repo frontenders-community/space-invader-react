@@ -16,7 +16,7 @@ export const useStage = (player, resetPlayer) => {
       );
 
       // Draw the player
-      newStage[player.pos.y][player.pos.x] = { type: "player" };
+      newStage[player.pos.y][player.pos.x] = { type: "player" };      
 
       // Then draw aliens
       player.aliens.forEach((row, y) => {

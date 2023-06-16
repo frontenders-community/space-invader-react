@@ -5,3 +5,8 @@ export const createStage = () =>
   Array.from(Array(STAGE_HEIGHT), () =>
     new Array(STAGE_WIDTH).fill({ type: "clear" })
   );
+
+export const checkPlayerCollision = (player, stage, moveX) => {
+  // Check that our move is inside the game area width
+  return !stage[STAGE_HEIGHT - 1][player.pos.x + moveX];
+};

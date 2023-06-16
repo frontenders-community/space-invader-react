@@ -3,7 +3,6 @@ import React from "react";
 import Cell from "./Cell";
 
 const Stage = ({ stage }) => {
-  console.log("stage", stage);
   return (
     <div className="grid">
       {stage.map((row) =>
