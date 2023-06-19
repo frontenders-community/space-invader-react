@@ -19,7 +19,6 @@ const Space = () => {
   //   console.log("re-render");
   //
   const movePlayer = (dir) => {
-    console.log("move", dir);
     if (!checkPlayerCollision(player, stage, dir)) {
       updatePlayerPos({ x: dir, y: 0 });
     }
@@ -28,9 +27,12 @@ const Space = () => {
   const startGame = () => {
     // Reset everything
     setStage(createStage());
-    // setMoveTime(100000);
-    moveAliens();
+    setMoveTime(1000);
     resetPlayer();
+  };
+
+  const stopGame = () => {
+    setMoveTime(null);
   };
 
   const shoot = () => {
@@ -63,6 +65,7 @@ const Space = () => {
       <section>
         <Display text="Score" />
         <StartButton callback={startGame} />
+        <StartButton callback={stopGame} />
       </section>
 
       <section className="grid-box">
