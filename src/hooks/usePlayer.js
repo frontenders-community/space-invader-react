@@ -6,6 +6,7 @@ import { aliens } from "../aliens";
 export const usePlayer = () => {
   const [player, setPlayer] = useState({
     pos: { x: Math.floor(STAGE_WIDTH / 2), y: STAGE_HEIGHT - 1 },
+    laserPos: null,
     aliens: aliens(),
     aliensDirection: {
       x: 1,
@@ -14,7 +15,7 @@ export const usePlayer = () => {
   });
 
   const updatePlayerPos = ({ x, y }) => {
-    console.log('updatePlayerPos');
+    console.log("updatePlayerPos");
     const newX = player.pos.x + x;
     setPlayer((prev) => ({
       ...prev,
@@ -22,9 +23,32 @@ export const usePlayer = () => {
     }));
   };
 
+  const updateLaserPos = () => {
+    console.log('updateLaser');
+    if (!player.laserPos) {
+      console.log('First laser set');
+      setPlayer({
+        ...player,
+        laserPos: {
+          x: player.pos.x,
+          y: player.pos.y - 1,
+          collided: false,
+        },
+      });
+    } else {
+      setPlayer((prev) => ({
+        ...prev,
+        laserPos: {
+          ...prev.laserPos,
+          y: prev.laserPos.y - 1,
+        },
+      }));
+    }
+  };
+
   const moveAliens = () => {
     console.log("updateAliensPos");
-    console.log('player before update', player);
+    console.log("player before update", player);
     let directionX = player.aliensDirection.x;
     let directionY = player.aliensDirection.y;
 
@@ -71,6 +95,7 @@ export const usePlayer = () => {
   const resetPlayer = useCallback(() => {
     setPlayer({
       pos: { x: Math.floor(STAGE_WIDTH / 2), y: STAGE_HEIGHT - 1 },
+      laserPos: null,
       aliens: aliens(),
       aliensDirection: {
         x: 1,
@@ -79,5 +104,5 @@ export const usePlayer = () => {
     });
   }, []);
 
-  return [player, updatePlayerPos, moveAliens, resetPlayer];
+  return [player, updatePlayerPos, moveAliens, resetPlayer, updateLaserPos];
 };

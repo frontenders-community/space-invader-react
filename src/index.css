@@ -44,3 +44,17 @@ body {
 .player {
   background-color: lightblue;
 }
+
+.laser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.laser::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 50%;
+  background-color: orange;
+}

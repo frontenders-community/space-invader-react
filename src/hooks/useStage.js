@@ -15,6 +15,12 @@ export const useStage = (player, resetPlayer) => {
 
       // Draw the player
       newStage[player.pos.y][player.pos.x] = { type: "player" };
+      // Draw the lazer
+      console.log('useStage player', player);
+      if(player.laserPos) {
+        console.log(newStage[player.laserPos.y][player.laserPos.x]);
+        newStage[player.laserPos.y][player.laserPos.x] = { type: "laser" };
+      }
 
       // Then draw aliens
       player.aliens.forEach((row, y) => {

@@ -12,8 +12,10 @@ import { createStage, checkPlayerCollision } from "../gameHelpers";
 
 const Space = () => {
   const [moveTime, setMoveTime] = useState(null);
+  const [laserTime, setLaserTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [player, updatePlayerPos, moveAliens, resetPlayer] = usePlayer();
+  const [player, updatePlayerPos, moveAliens, resetPlayer, updateLaserPos] =
+    usePlayer();
   const [stage, setStage] = useStage(player);
   //
   //   console.log("re-render");
@@ -36,9 +38,11 @@ const Space = () => {
   };
 
   const shoot = () => {
-    console.log("shoot");
+    if (!laserTime) {
+      setLaserTime(50);
+    }
   };
-  //
+
   const move = ({ keyCode }) => {
     if (!gameOver) {
       if (keyCode === 37) {
@@ -50,6 +54,10 @@ const Space = () => {
       }
     }
   };
+
+  useInterval(() => {
+    updateLaserPos();
+  }, laserTime);
 
   useInterval(() => {
     moveAliens();
