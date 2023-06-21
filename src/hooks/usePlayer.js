@@ -23,32 +23,14 @@ export const usePlayer = () => {
     }));
   };
 
-  const updateLaserPos = () => {
-    console.log('updateLaser');
-    if (!player.laserPos) {
-      console.log('First laser set');
-      setPlayer({
-        ...player,
-        laserPos: {
-          x: player.pos.x,
-          y: player.pos.y - 1,
-          collided: false,
-        },
-      });
-    } else {
-      setPlayer((prev) => ({
-        ...prev,
-        laserPos: {
-          ...prev.laserPos,
-          y: prev.laserPos.y - 1,
-        },
-      }));
-    }
+  const updateLaserPos = (newPos) => {
+    setPlayer({
+      ...player,
+      laserPos: newPos,
+    });
   };
 
   const moveAliens = () => {
-    console.log("updateAliensPos");
-    console.log("player before update", player);
     let directionX = player.aliensDirection.x;
     let directionY = player.aliensDirection.y;
 
@@ -92,6 +74,27 @@ export const usePlayer = () => {
     });
   };
 
+  const killAlien = ({ x, y }) => {
+    console.log(x, y);
+    const clonedAliens = JSON.parse(JSON.stringify(player.aliens));
+    for (let rowIndex = 0; rowIndex < clonedAliens.length; rowIndex++) {
+      const row = player.aliens[rowIndex];
+      for (let colIndex = 0; colIndex < row.length; colIndex++) {
+        const alien = row[colIndex];
+        console.log(alien);
+        if (alien.pos_x === x && alien.pos_y === y) {
+          alien.alive = false;
+          // break;
+        }
+      }
+    }
+    console.log(clonedAliens);
+    setPlayer({
+      ...player,
+      aliens: clonedAliens,
+    });
+  };
+
   const resetPlayer = useCallback(() => {
     setPlayer({
       pos: { x: Math.floor(STAGE_WIDTH / 2), y: STAGE_HEIGHT - 1 },
@@ -104,5 +107,12 @@ export const usePlayer = () => {
     });
   }, []);
 
-  return [player, updatePlayerPos, moveAliens, resetPlayer, updateLaserPos];
+  return [
+    player,
+    updatePlayerPos,
+    moveAliens,
+    resetPlayer,
+    updateLaserPos,
+    killAlien,
+  ];
 };

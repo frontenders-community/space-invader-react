@@ -16,19 +16,18 @@ export const useStage = (player, resetPlayer) => {
       // Draw the player
       newStage[player.pos.y][player.pos.x] = { type: "player" };
       // Draw the lazer
-      console.log('useStage player', player);
-      if(player.laserPos) {
-        console.log(newStage[player.laserPos.y][player.laserPos.x]);
+      if (player.laserPos) {
         newStage[player.laserPos.y][player.laserPos.x] = { type: "laser" };
       }
 
       // Then draw aliens
       player.aliens.forEach((row, y) => {
         row.forEach((alien) => {
-          const rowIndex = alien.pos_y;
-          const colIndex =
-            y === 0 ? alien.pos_x : alien.pos_x % (y * STAGE_WIDTH);
-          newStage[rowIndex][colIndex] = { type: "alien" };
+          if (alien.alive) {
+            const rowIndex = alien.pos_y;
+            const colIndex = alien.pos_x;
+            newStage[rowIndex][colIndex] = { type: "alien" };
+          }
         });
       });
       return newStage;

@@ -8,14 +8,25 @@ import { usePlayer } from "../hooks/usePlayer";
 import { useStage } from "../hooks/useStage";
 import { useInterval } from "../hooks/useInterval";
 
-import { createStage, checkPlayerCollision } from "../gameHelpers";
+import {
+  createStage,
+  checkPlayerCollision,
+  checkLaserAlienCollision,
+  checkLaserSpaceCollision,
+} from "../gameHelpers";
 
 const Space = () => {
   const [moveTime, setMoveTime] = useState(null);
   const [laserTime, setLaserTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [player, updatePlayerPos, moveAliens, resetPlayer, updateLaserPos] =
-    usePlayer();
+  const [
+    player,
+    updatePlayerPos,
+    moveAliens,
+    resetPlayer,
+    updateLaserPos,
+    killAlien,
+  ] = usePlayer();
   const [stage, setStage] = useStage(player);
   //
   //   console.log("re-render");
@@ -41,6 +52,27 @@ const Space = () => {
     if (!laserTime) {
       setLaserTime(50);
     }
+    if (!player.laserPos) {
+      updateLaserPos({
+        x: player.pos.x,
+        y: player.pos.y - 1,
+        collided: false,
+      });
+    } else if (checkLaserAlienCollision(player.laserPos, stage)) {
+      console.log("collided with allien");
+      killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1});
+      updateLaserPos(null);
+      setLaserTime(null);
+    } else if (checkLaserSpaceCollision(player.laserPos, stage)) {
+      console.log("Collided with space");
+      setLaserTime(null);
+    } else {
+      updateLaserPos({
+        x: player.laserPos.x,
+        y: player.laserPos.y - 1,
+        collided: false,
+      });
+    }
   };
 
   const move = ({ keyCode }) => {
@@ -56,7 +88,7 @@ const Space = () => {
   };
 
   useInterval(() => {
-    updateLaserPos();
+    shoot();
   }, laserTime);
 
   useInterval(() => {
