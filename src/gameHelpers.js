@@ -15,6 +15,6 @@ export const checkLaserAlienCollision = (laserPos, stage) => {
   return stage[laserPos.y - 1][laserPos.x].type !== "clear";
 };
 
-export const checkLaserSpaceCollision = (laserPos, stage) => {
-  return !stage[laserPos.y - 1];
+export const checkLaserSpaceCollision = (laserPos) => {
+  return laserPos.y - 1 < 0;
 };

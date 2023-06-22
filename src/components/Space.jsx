@@ -50,7 +50,7 @@ const Space = () => {
 
   const shoot = () => {
     if (!laserTime) {
-      setLaserTime(50);
+      setLaserTime(20);
     }
     if (!player.laserPos) {
       updateLaserPos({
@@ -58,13 +58,14 @@ const Space = () => {
         y: player.pos.y - 1,
         collided: false,
       });
+    } else if (checkLaserSpaceCollision(player.laserPos)) {
+      console.log("Collided with space");
+      setLaserTime(null);
+      updateLaserPos(null);
     } else if (checkLaserAlienCollision(player.laserPos, stage)) {
       console.log("collided with allien");
-      killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1});
+      killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1 });
       updateLaserPos(null);
-      setLaserTime(null);
-    } else if (checkLaserSpaceCollision(player.laserPos, stage)) {
-      console.log("Collided with space");
       setLaserTime(null);
     } else {
       updateLaserPos({

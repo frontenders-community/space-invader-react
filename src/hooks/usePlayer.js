@@ -43,7 +43,7 @@ export const usePlayer = () => {
       // Check if can continue to go to the left
       const lastAlien =
         player.aliens[player.aliens.length - 1][player.aliens[0].length - 1];
-      if ((lastAlien.pos_x % STAGE_WIDTH) + 1 >= STAGE_WIDTH) {
+      if (lastAlien.pos_x + 1 >= STAGE_WIDTH) {
         directionY = 1;
       }
     } else if (player.aliensDirection.x === -1) {
