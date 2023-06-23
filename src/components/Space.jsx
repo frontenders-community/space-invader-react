@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Stage from "./Stage";
 import Display from "./Display";
@@ -18,7 +18,12 @@ import {
 const Space = () => {
   const [moveTime, setMoveTime] = useState(null);
   const [laserTime, setLaserTime] = useState(null);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameResult, setGameResult] = useState("");
+
+  const finishGame = (state) => {
+    setGameResult(state);
+  };
+
   const [
     player,
     updatePlayerPos,
@@ -26,11 +31,10 @@ const Space = () => {
     resetPlayer,
     updateLaserPos,
     killAlien,
-  ] = usePlayer();
+    incrementScore,
+  ] = usePlayer({ finishGame });
   const [stage, setStage] = useStage(player);
-  //
-  //   console.log("re-render");
-  //
+
   const movePlayer = (dir) => {
     if (!checkPlayerCollision(player, stage, dir)) {
       updatePlayerPos({ x: dir, y: 0 });
@@ -59,12 +63,11 @@ const Space = () => {
         collided: false,
       });
     } else if (checkLaserSpaceCollision(player.laserPos)) {
-      console.log("Collided with space");
       setLaserTime(null);
       updateLaserPos(null);
     } else if (checkLaserAlienCollision(player.laserPos, stage)) {
-      console.log("collided with allien");
       killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1 });
+      incrementScore();
       updateLaserPos(null);
       setLaserTime(null);
     } else {
@@ -77,7 +80,7 @@ const Space = () => {
   };
 
   const move = ({ keyCode }) => {
-    if (!gameOver) {
+    if (gameResult === "") {
       if (keyCode === 37) {
         movePlayer(-1);
       } else if (keyCode === 39) {
@@ -87,6 +90,10 @@ const Space = () => {
       }
     }
   };
+
+  useEffect(() => {
+    console.log("score changes");
+  }, [player.score]);
 
   useInterval(() => {
     shoot();
@@ -104,13 +111,17 @@ const Space = () => {
       onKeyDown={(e) => move(e)}
     >
       <section>
-        <Display text="Score" />
+        <Display text={player.score} />
         <StartButton callback={startGame} />
         <StartButton callback={stopGame} />
       </section>
 
       <section className="grid-box">
-        {gameOver ? <Display text={"Game Over"} /> : <Stage stage={stage} />}
+        {gameResult === "gameover" ? (
+          <Display text={"Game Over"} />
+        ) : (
+          <Stage stage={stage} />
+        )}
       </section>
     </div>
   );
