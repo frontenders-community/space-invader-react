@@ -31,7 +31,6 @@ const Space = () => {
     resetPlayer,
     updateLaserPos,
     killAlien,
-    incrementScore,
   ] = usePlayer({ finishGame });
   const [stage, setStage] = useStage(player);
 
@@ -43,6 +42,7 @@ const Space = () => {
 
   const startGame = () => {
     // Reset everything
+    setGameResult("")
     setStage(createStage());
     setMoveTime(1000);
     resetPlayer();
@@ -67,7 +67,6 @@ const Space = () => {
       updateLaserPos(null);
     } else if (checkLaserAlienCollision(player.laserPos, stage)) {
       killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1 });
-      incrementScore();
       updateLaserPos(null);
       setLaserTime(null);
     } else {

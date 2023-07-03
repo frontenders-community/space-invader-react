@@ -24,7 +24,6 @@ export const usePlayer = ({ finishGame }) => {
   };
 
   const updateLaserPos = (newPos) => {
-    console.log("newpos", player);
     setPlayer({
       ...player,
       laserPos: newPos,
@@ -99,17 +98,11 @@ export const usePlayer = ({ finishGame }) => {
         }
       }
     }
+    console.log("kill alien", player.score + 1);
     setPlayer({
       ...player,
       score: player.score + 1,
       aliens: clonedAliens,
-    });
-  };
-
-  const incrementScore = () => {
-    setPlayer({
-      ...player,
-      score: player.score + 1,
     });
   };
 
@@ -133,6 +126,5 @@ export const usePlayer = ({ finishGame }) => {
     resetPlayer,
     updateLaserPos,
     killAlien,
-    incrementScore,
   ];
 };
