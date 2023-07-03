@@ -4,8 +4,13 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Pixel';
+  src: url('assets/fonts/Pixel-LCD-7.woff') format('woff');
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Pixel', sans-serif;
   background-image: url("./assets/img/bg.png");
   background-size: cover;
   background-position: center;
@@ -16,11 +21,12 @@ body {
 .wrapper {
   width: 100%;
   height: 100vh;
+  padding: 20px 0;
 }
 
 /* Grid */
 .grid {
-  width: 80vw;
+  width: 60vw;
   height: 80vh;
   margin: 20px auto 0;
   display: flex;
@@ -35,12 +41,17 @@ body {
 }
 
 .alien {
-  background-color: purple;
-  border-radius: 10px;
+  background-image: url("./assets/img/alien.png");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .player {
-  background-color: lightblue;
+  background-image: url("./assets/img/ship.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .laser {
@@ -52,7 +63,24 @@ body {
 .laser::after {
   content: "";
   display: block;
-  width: 50%;
-  height: 50%;
+  width: 5px;
+  height: 10px;
   background-color: orange;
+}
+
+.btn {
+  margin: 0 0 20px 0;
+  padding: 10px 30px;
+  min-height: 30px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background: rgba(51, 51, 51, 1);
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(51, 51, 51, .7);
 }

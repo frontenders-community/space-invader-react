@@ -48,10 +48,6 @@ const Space = () => {
     resetPlayer();
   };
 
-  const stopGame = () => {
-    setMoveTime(null);
-  };
-
   const shoot = () => {
     if (!laserTime) {
       setLaserTime(20);
@@ -112,7 +108,6 @@ const Space = () => {
       <section>
         <Display text={player.score} />
         <StartButton callback={startGame} />
-        <StartButton callback={stopGame} />
       </section>
 
       <section className="grid-box">
