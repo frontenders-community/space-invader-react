@@ -41,14 +41,12 @@ const Space = () => {
   };
 
   const startGame = () => {
-    // Reset everything
-    setGameResult("")
-    setStage(createStage());
-    setMoveTime(1000);
-    resetPlayer();
+    console.log("start game");
+    setGameResult("playing")
   };
 
   const shoot = () => {
+    console.log("shoot");
     if (!laserTime) {
       setLaserTime(20);
     }
@@ -75,7 +73,7 @@ const Space = () => {
   };
 
   const move = ({ keyCode }) => {
-    if (gameResult === "") {
+    if (gameResult === "playing") {
       if (keyCode === 37) {
         movePlayer(-1);
       } else if (keyCode === 39) {
@@ -87,8 +85,16 @@ const Space = () => {
   };
 
   useEffect(() => {
-    console.log("score changes");
+    console.log("score changes", player.score);
   }, [player.score]);
+
+  useEffect(() => {
+    if (gameResult === "playing") {
+      setStage(createStage());
+      setMoveTime(1000);
+      resetPlayer();
+    }
+  }, [gameResult]);  
 
   useInterval(() => {
     shoot();
