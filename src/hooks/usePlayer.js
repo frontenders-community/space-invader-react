@@ -16,24 +16,21 @@ export const usePlayer = ({ finishGame }) => {
   });
 
   const updatePlayerPos = ({ x, y }) => {
-    console.log("updatePlayerPos");
     const newX = player.pos.x + x;
-    setPlayer((prev) => ({
+    setPlayer({
       ...player,
       pos: { x: newX, y: (player.pos.y += y) },
-    }));
+    });
   };
 
   const updateLaserPos = (newPos) => {
-    console.log("updateLaserPos");
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
+    setPlayer({
+      ...player,
       laserPos: newPos,
-    }));
+    });
   };
 
   const moveAliens = () => {
-    console.log("moveAliens");
     let directionX = player.aliensDirection.x;
     let directionY = player.aliensDirection.y;
 
@@ -79,19 +76,17 @@ export const usePlayer = ({ finishGame }) => {
       return;
     }
 
-    setPlayer((prev) => ({
-      ...prev,
+    setPlayer({
+      ...player,
       aliens: clonedAliens,
       aliensDirection: {
         x: directionX,
         y: directionY,
       },
-    }));
+    });
   };
 
   const killAlien = ({ x, y }) => {
-    console.log("killAlien");
-
     const clonedAliens = JSON.parse(JSON.stringify(player.aliens));
     for (let rowIndex = 0; rowIndex < clonedAliens.length; rowIndex++) {
       const row = player.aliens[rowIndex];
@@ -99,21 +94,19 @@ export const usePlayer = ({ finishGame }) => {
         const alien = row[colIndex];
         if (alien.pos_x === x && alien.pos_y === y) {
           alien.alive = false;
-          console.log(alien, rowIndex, colIndex);
           break;
         }
       }
     }
-    console.log("kill alien", clonedAliens);
-    setPlayer((prev) => ({
-      ...prev,
+    console.log("kill alien", player.score + 1);
+    setPlayer({
+      ...player,
       score: player.score + 1,
       aliens: clonedAliens,
-    }));
+    });
   };
 
-  const resetPlayer = () => {
-    console.log("resetPlayer");
+  const resetPlayer = useCallback(() => {
     setPlayer({
       pos: { x: Math.floor(STAGE_WIDTH / 2), y: STAGE_HEIGHT - 1 },
       score: 0,
@@ -124,7 +117,7 @@ export const usePlayer = ({ finishGame }) => {
         y: 0,
       },
     });
-  };
+  }, []);
 
   return [
     player,
