@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 import { STAGE_HEIGHT, STAGE_WIDTH } from "../gameHelpers";
-import { aliens } from "../aliens";
+import { ALIENS_IN_ROW, ALIENS_ROWS, aliens } from "../aliens";
 
 export const usePlayer = ({ finishGame }) => {
   const [player, setPlayer] = useState({
@@ -17,17 +17,17 @@ export const usePlayer = ({ finishGame }) => {
 
   const updatePlayerPos = ({ x, y }) => {
     const newX = player.pos.x + x;
-    setPlayer({
-      ...player,
+    setPlayer((prev) => ({
+      ...prev,
       pos: { x: newX, y: (player.pos.y += y) },
-    });
+    }));
   };
 
   const updateLaserPos = (newPos) => {
-    setPlayer({
-      ...player,
+    setPlayer((prev) => ({
+      ...prev,
       laserPos: newPos,
-    });
+    }));
   };
 
   const moveAliens = () => {
@@ -76,14 +76,14 @@ export const usePlayer = ({ finishGame }) => {
       return;
     }
 
-    setPlayer({
-      ...player,
+    setPlayer((prev) => ({
+      ...prev,
       aliens: clonedAliens,
       aliensDirection: {
         x: directionX,
         y: directionY,
       },
-    });
+    }));
   };
 
   const killAlien = ({ x, y }) => {
@@ -98,11 +98,21 @@ export const usePlayer = ({ finishGame }) => {
         }
       }
     }
-    console.log("kill alien", player.score + 1);
+
+    const newScore = player.score + 1;
+
+    if (newScore === ALIENS_IN_ROW * ALIENS_ROWS) {
+      finishGame("win");
+    }
+
+    setPlayer((prev) => ({
+      ...prev,
+      aliens: clonedAliens,
+    }));
+
     setPlayer({
       ...player,
       score: player.score + 1,
-      aliens: clonedAliens,
     });
   };
 

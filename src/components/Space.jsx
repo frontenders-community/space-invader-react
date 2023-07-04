@@ -41,11 +41,7 @@ const Space = () => {
   };
 
   const startGame = () => {
-    // Reset everything
-    setGameResult("")
-    setStage(createStage());
-    setMoveTime(1000);
-    resetPlayer();
+    setGameResult("playing");
   };
 
   const shoot = () => {
@@ -75,7 +71,7 @@ const Space = () => {
   };
 
   const move = ({ keyCode }) => {
-    if (gameResult === "") {
+    if (gameResult === "playing") {
       if (keyCode === 37) {
         movePlayer(-1);
       } else if (keyCode === 39) {
@@ -87,8 +83,15 @@ const Space = () => {
   };
 
   useEffect(() => {
-    console.log("score changes");
-  }, [player.score]);
+    if (gameResult === "playing") {
+      // Reset everything
+      setStage(createStage());
+      setMoveTime(1000);
+      resetPlayer();
+    } else if (gameResult === "gameover" || gameResult === "win") {
+      setMoveTime(null);
+    }
+  }, [gameResult]);
 
   useInterval(() => {
     shoot();
@@ -113,6 +116,8 @@ const Space = () => {
       <section className="grid-box">
         {gameResult === "gameover" ? (
           <Display text={"Game Over"} />
+        ) : gameResult === "win" ? (
+          <Display text={"YOU ARE WIN!!!"} />
         ) : (
           <Stage stage={stage} />
         )}
