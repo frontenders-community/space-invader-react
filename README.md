@@ -4,22 +4,21 @@
 
 https://github.com/frontenders-community/space-invader-react/assets/56634652/8558bc3e-508f-4d78-8667-ba8265d8ab88
 
-In questa challenge dovete ricreare l'iconico gioco di Space Envaders.
-- il giocatore tramite la tastiera può muovre il proprio space ship a destra / sinistra
-- il giocatore può sparare verso gli allieni, se il laser tocca un allieno, quest'ultimo viene ucciso e quindi viene tolto dall'area del gioco, il punteggio del gioccatore viene incrementato
-- gli allieni sono disposti in griglia e si muovono automaticamente in orizzontale, scendendo al conclusione di ogni riga  
-
-Il giocatore vince se uccide tutti gli allieni. 
-Il giocatore perde se gli allieni scendono fino alla sua posizione.
+In questa challenge dovete ricreare l'iconico gioco di Space Invaders.
+- il giocatore tramite la tastiera può muovere la propria navicella a destra e sinistra
+- il giocatore può sparare verso gli alieni: se il laser tocca un alieno, quest'ultimo viene ucciso e quindi viene tolto dall'area del gioco; il punteggio del gioccatore viene incrementato
+- gli alieni sono disposti in griglia e si muovono automaticamente in orizzontale, scendendo quando arrivano alla fine di ogni riga  
+- il giocatore vince se uccide tutti gli alieni
+- il giocatore perde se gli alieni arrivano fino alla sua posizione
 
 #### Bonus
-- gestire diversi livelli del gioco: ad aumentare dei livelli incrementa la velocità di movimento degli allieni 
+Provare a gestire diversi livelli del gioco: all'aumentare dei livelli incrementa la velocità di movimento degli alieni 
 
 ### Scaffolding
-All'interno di ```/assets``` sono presenti delle immagini e il font.
+All'interno di ```/assets``` sono presenti delle immagini e il font
 
 ### Tecnologie
-L'esercizio può essere svolto in uno dei framwork frontend oppure in plain JS.
+L'esercizio può essere svolto con un framwork frontend oppure in plain JS
+
 ### Credits
-Il font (author: Sizenko Alexander, www.styleseven.com, The fonts Pixel LCD-7 is freeware for home using.)useInterval.js hook creato da Dan Abramov
-Alcuni spunti riguardo all'implementazione sono presi dal tutorial sul gioco di tetris di Thomas Weibenfalk: https://www.youtube.com/watch?v=ZGOaCxX8HIU
+Il font è di Sizenko Alexander. L'hook useInterval è preso da Dan Abramov. Alcuni spunti riguardo all'implementazione sono presi dal tutorial sul gioco di tetris di Thomas Weibenfalk: https://www.youtube.com/watch?v=ZGOaCxX8HIU
