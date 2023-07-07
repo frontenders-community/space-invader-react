@@ -2,8 +2,7 @@
 
 ## Challenge #16 - Space envaders
 
-https://github.com/frontenders-community/space-invader-react/assets/56634652/94dee8d0-b050-4165-b10c-cdfa934b3117
-
+https://github.com/frontenders-community/space-invader-react/assets/56634652/8558bc3e-508f-4d78-8667-ba8265d8ab88
 
 In questa challenge dovete ricreare l'iconico gioco di Space Envaders.
 - il giocatore tramite la tastiera può muovre il proprio space ship a destra / sinistra
