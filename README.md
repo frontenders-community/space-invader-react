@@ -19,7 +19,7 @@ Il giocatore perde se gli allieni scendono fino alla sua posizione.
 All'interno di ```/assets``` sono presenti delle immagini e il font.
 
 ### Tecnologie
-L'esercizio può essere svolto in uno dei framwork frontend oppure in plain JS
+L'esercizio può essere svolto in uno dei framwork frontend oppure in plain JS.
 ### Credits
 Il font (author: Sizenko Alexander, www.styleseven.com, The fonts Pixel LCD-7 is freeware for home using.)useInterval.js hook creato da Dan Abramov
 Alcuni spunti riguardo all'implementazione sono presi dal tutorial sul gioco di tetris di Thomas Weibenfalk: https://www.youtube.com/watch?v=ZGOaCxX8HIU
