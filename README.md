@@ -2,6 +2,9 @@
 
 ## Challenge #16 - Space envaders
 
+https://github.com/frontenders-community/space-invader-react/assets/56634652/94dee8d0-b050-4165-b10c-cdfa934b3117
+
+
 In questa challenge dovete ricreare l'iconico gioco di Space Envaders.
 - il giocatore tramite la tastiera può muovre il proprio space ship a destra / sinistra
 - il giocatore può sparare verso gli allieni, se il laser tocca un allieno, quest'ultimo viene ucciso e quindi viene tolto dall'area del gioco, il punteggio del gioccatore viene incrementato
