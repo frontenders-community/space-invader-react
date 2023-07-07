@@ -108,10 +108,11 @@ const Space = () => {
       tabIndex="0"
       onKeyDown={(e) => move(e)}
     >
-      <section>
-        <Display text={player.score} />
+      <header> 
+        <Display text={`Level 1`} />
+        <Display text={`Score: ${player.score}`} />
         <StartButton callback={startGame} />
-      </section>
+      </header>
 
       <section className="grid-box">
         {gameResult === "gameover" ? (
