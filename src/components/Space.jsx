@@ -13,26 +13,25 @@ import {
   checkPlayerCollision,
   checkLaserAlienCollision,
   checkLaserSpaceCollision,
+  STAGE_HEIGHT,
 } from "../gameHelpers";
+import { useAliens } from "../hooks/useAliens";
+import { ALIENS_IN_ROW, ALIENS_ROWS } from "../aliens";
 
 const Space = () => {
   const [moveTime, setMoveTime] = useState(null);
   const [laserTime, setLaserTime] = useState(null);
   const [gameResult, setGameResult] = useState("");
 
+  const [moveAliens, aliens, killAlien, resetAliens] = useAliens();
+  const [player, updatePlayerPos, resetPlayer, updateLaserPos, incrementScore] =
+    usePlayer();
+
+  const [stage, setStage] = useStage(player, aliens);
+
   const finishGame = (state) => {
     setGameResult(state);
   };
-
-  const [
-    player,
-    updatePlayerPos,
-    moveAliens,
-    resetPlayer,
-    updateLaserPos,
-    killAlien,
-  ] = usePlayer({ finishGame });
-  const [stage, setStage] = useStage(player);
 
   const movePlayer = (dir) => {
     if (!checkPlayerCollision(player, stage, dir)) {
@@ -59,6 +58,7 @@ const Space = () => {
       updateLaserPos(null);
     } else if (checkLaserAlienCollision(player.laserPos, stage)) {
       killAlien({ x: player.laserPos.x, y: player.laserPos.y - 1 });
+      incrementScore();
       updateLaserPos(null);
       setLaserTime(null);
     } else {
@@ -88,10 +88,23 @@ const Space = () => {
       setStage(createStage());
       setMoveTime(1000);
       resetPlayer();
+      resetAliens();
     } else if (gameResult === "gameover" || gameResult === "win") {
       setMoveTime(null);
     }
   }, [gameResult]);
+
+  useEffect(() => {
+    if (aliens.lowestAliveRowPos === STAGE_HEIGHT - 1) {
+      finishGame("gameover");
+    }
+  }, [aliens]);
+
+  useEffect(() => {
+    if (player.score === ALIENS_IN_ROW * ALIENS_ROWS) {
+      finishGame("win");
+    }
+  }, [player.score]);
 
   useInterval(() => {
     shoot();
@@ -108,7 +121,7 @@ const Space = () => {
       tabIndex="0"
       onKeyDown={(e) => move(e)}
     >
-      <header> 
+      <header>
         <Display text={`Level 1`} />
         <Display text={`Score: ${player.score}`} />
         <StartButton callback={startGame} />

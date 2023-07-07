@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { STAGE_WIDTH, createStage } from "../gameHelpers";
+import {createStage } from "../gameHelpers";
 
-export const useStage = (player) => {
+export const useStage = (player, aliens) => {
   const [stage, setStage] = useState(createStage());
 
   useEffect(() => {
@@ -21,11 +21,11 @@ export const useStage = (player) => {
       }
 
       // Then draw aliens
-      player.aliens.forEach((row, y) => {
+      aliens.items.forEach((row, y) => {
         row.forEach((alien) => {
           if (alien.alive) {
-            const rowIndex = alien.pos_y;
-            const colIndex = alien.pos_x;
+            const rowIndex = alien.y;
+            const colIndex = alien.x;
             newStage[rowIndex][colIndex] = { type: "alien" };
           }
         });
@@ -34,7 +34,7 @@ export const useStage = (player) => {
     };
 
     setStage((prev) => updateStage(prev));
-  }, [player]);
+  }, [player, aliens]);
 
   return [stage, setStage];
 };
