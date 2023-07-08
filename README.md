@@ -1,6 +1,6 @@
 # Frontenders Community
 
-## Challenge #16 - Space envaders
+## Challenge #16 - Space invaders
 
 
 https://github.com/frontenders-community/space-invader-react/assets/56634652/e1770776-be51-415d-a1ab-ef32b332fb6c
